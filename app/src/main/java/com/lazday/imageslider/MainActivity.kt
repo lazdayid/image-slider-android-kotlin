@@ -11,9 +11,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var currentPage = 0
-    private var NUM_PAGES = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,15 +33,19 @@ class MainActivity : AppCompatActivity() {
 
 //    private fun createSlider(string: List<String>) {
     private fun createSlider(string: List<Int>) {
+
+        var currentPage = 0
+        var numPages = 0
+
         vpSlider.adapter = SliderAdapter(this, string)
         indicator.setViewPager(vpSlider)
         val density = resources.displayMetrics.density
         //Set circle indicator radius
         indicator.radius = 5 * density
-        NUM_PAGES = string.size
+        numPages = string.size
         // Auto getData of viewpager
         val update = Runnable {
-            if (currentPage === NUM_PAGES) {
+            if (currentPage === numPages) {
                 currentPage = 0
             }
             vpSlider.setCurrentItem(currentPage++, true)
