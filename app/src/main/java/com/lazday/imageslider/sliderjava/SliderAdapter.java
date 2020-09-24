@@ -2,7 +2,6 @@ package com.lazday.imageslider.sliderjava;
 
 import android.content.Context;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,6 @@ public class SliderAdapter extends PagerAdapter {
         View imageLayout = inflater.inflate(R.layout.adapter_slider, view, false);
         assert imageLayout != null;
         final ImageView imageView = imageLayout .findViewById(R.id.image);
-//        ImageHelper.getPicasso(imageView, stringList.get(position));
         Picasso.get().load(stringList.get(position))
                 .placeholder(R.drawable.img_no_images)
                 .error(R.drawable.img_no_images)

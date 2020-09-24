@@ -2,9 +2,9 @@ package com.lazday.imageslider
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.lazday.imageslider.sliderjava.SliderAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -24,19 +24,26 @@ class MainActivity : AppCompatActivity() {
             "https://images.pexels.com/photos/37728/pexels-photo-37728.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
         )
 
-        createSlider( lists )
+        val assets = listOf(
+            R.drawable.photo_one,
+            R.drawable.photo_two,
+            R.drawable.photo_three
+        )
+
+//        createSlider( lists )
+        createSlider( assets )
     }
 
-    private fun createSlider(string: List<String>) {
-        vpSlider.setAdapter(SliderAdapter(this, string))
+//    private fun createSlider(string: List<String>) {
+    private fun createSlider(string: List<Int>) {
+        vpSlider.adapter = SliderAdapter(this, string)
         indicator.setViewPager(vpSlider)
         val density = resources.displayMetrics.density
         //Set circle indicator radius
-        indicator.setRadius(5 * density)
+        indicator.radius = 5 * density
         NUM_PAGES = string.size
         // Auto getData of viewpager
-        val handler = Handler()
-        val Update = Runnable {
+        val update = Runnable {
             if (currentPage === NUM_PAGES) {
                 currentPage = 0
             }
@@ -45,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         val swipeTimer = Timer()
         swipeTimer.schedule(object : TimerTask() {
             override fun run() {
-                handler.post(Update)
+                Handler(Looper.getMainLooper()).post(update)
             }
         }, 5000, 5000)
         // Pager listener over indicator
