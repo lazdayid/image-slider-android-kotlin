@@ -11,6 +11,9 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    private var currentPage = 0
+    private var numPages = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,9 +36,6 @@ class MainActivity : AppCompatActivity() {
 
 //    private fun createSlider(string: List<String>) {
     private fun createSlider(string: List<Int>) {
-
-        var currentPage = 0
-        var numPages = 0
 
         vpSlider.adapter = SliderAdapter(this, string)
         indicator.setViewPager(vpSlider)
